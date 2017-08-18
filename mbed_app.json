@@ -1,0 +1,11 @@
+{
+    "target_overrides": {
+        "*": {
+            "target.features_add": ["NANOSTACK", "LOWPAN_ROUTER", "COMMON_PAL"],
+            "mbed-mesh-api.6lowpan-nd-channel": 12,
+            "mbed-mesh-api.6lowpan-nd-channel-mask": "(1<<12)",
+            "mbed-mesh-api.6lowpan-nd-security-mode": "NONE",
+            "mbed-mesh-api.heap-size": 10000
+        }
+    }
+}
