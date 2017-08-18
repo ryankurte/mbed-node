@@ -4,7 +4,10 @@ build:
 	mbed-cli compile
 
 build-debug:
-	mbed-cli --profile mbed-os/tools/profiles/debug.json
+	mbed-cli compile --profile mbed-os/tools/profiles/debug.json
+
+build-release:
+	mbed-cli compile --profile mbed-os/tools/profiles/release.json
 
 flash:
 	mbed-cli compile --flash
