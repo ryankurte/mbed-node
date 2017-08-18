@@ -35,18 +35,7 @@ void start_blinking() {
     ticker.attach(blink, 1.0);
 }
 
-int mbedtls_hardware_poll( void *data, unsigned char *output, size_t len, size_t *olen ) {
-    //trng_t trng_obj;
-    //trng_init(&trng_obj);
-    //int ret = trng_get_bytes(&trng_obj, output, len, olen);
-    //trng_free(&trng_obj);
-	//return ret;
-	return -1;
-}
-
 int main(int argc, char** argv) {
-
-	//sl_trng_init(TRNG0);
 
 	// Setup packet trace outputs
 	mbed_trace_init();
@@ -69,7 +58,7 @@ int main(int argc, char** argv) {
 		Thread::wait(500);
 
 	ticker.detach();
-	ticker.attach(blink, 1.0);
+	ticker.attach(blink, 3.0);
 
 	// Mesh connected
 	printf("connected. IP = %s\n", mesh.get_ip_address());
