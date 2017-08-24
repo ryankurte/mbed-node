@@ -1,0 +1,8 @@
+h
+r
+device EFR32FG12P433F1024GL125
+speed 4000
+loadbin ./BUILD/EFR32FG12_SLWRB4254A/GCC_ARM/node-mbed.bin 0x00000000
+verifybin ./BUILD/EFR32FG12_SLWRB4254A/GCC_ARM/node-mbed.bin, 0x00000000
+r
+qc

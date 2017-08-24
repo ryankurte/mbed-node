@@ -1,0 +1,16 @@
+target remote localhost:2331
+monitor halt
+monitor reset
+monitor speed 8000
+monitor flash device EFR32FG12P433F1024GL125
+
+define reset
+  monitor halt
+  monitor reset
+  jump Reset_Handler
+  tbreak main
+  continue
+end
+
+break main
+continue

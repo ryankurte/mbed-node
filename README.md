@@ -6,13 +6,16 @@ MBed OS Based Sensor/Actuator Node Application
 
 ### Requirements
 
-- arm-none-eabi-gcc
-- cmake
-- python
-- virtualenv
-  - mbed-cli
+Can be installed with your favourite package manager (brew/apt/yum etc.)
 
-This project uses virtualenv to mitigate janky af python packaging of the mbed-cli.
+- [arm-none-eabi-gcc](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
+- [cmake](https://cmake.org/)
+- [python](https://cmake.org/)
+- [virtualenv](https://virtualenv.pypa.io/en/stable/)
+  - [mbed-cli](https://github.com/ARMmbed/mbed-cli)
+
+This project uses virtualenv to mitigate janky af python packaging of mbed-cli, this is checked into the repository and contains the mbed-cli and all python dependencies.
+
 To launch the local virtual environment run `. ./venv/bin/activate`, to exit run `deactivate`.
 
 

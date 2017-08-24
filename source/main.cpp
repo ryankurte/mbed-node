@@ -1,13 +1,13 @@
 
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 
-#include "mbed.h"
-#include "rtos.h"
 #include "NanostackInterface.h"
 #include "mbed-trace/mbed_trace.h"
+#include "mbed.h"
+#include "rtos.h"
 
 #include "NanostackRfPhyEfr32.h"
 #include "sl_trng.h"
@@ -15,6 +15,15 @@
 DigitalOut led1(LED1);
 DigitalOut led2(LED2);
 
+int main(int argc, char **argv) {
+  while (1) {
+    led1 = !led1;
+    led2 = !led1;
+    wait(0.5);
+  }
+}
+
+#if 0
 LoWPANNDInterface mesh;
 NanostackRfPhyEfr32 rf_phy;
 
@@ -68,3 +77,4 @@ int main(int argc, char** argv) {
 	}
 }
 
+#endif
