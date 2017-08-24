@@ -18,3 +18,4 @@ update:
 install:
 	pip install mbed-cli
 
+.phony: build build-debug build-release flash update install
