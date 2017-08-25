@@ -12,5 +12,6 @@ define reset
   continue
 end
 
-break main
+load
+tbreak main
 continue

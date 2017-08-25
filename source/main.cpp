@@ -14,6 +14,7 @@
 
 DigitalOut led1(LED1);
 DigitalOut led2(LED2);
+Serial usb(USBTX, USBRX, 115200);
 
 LoWPANNDInterface mesh;
 NanostackRfPhyEfr32 rf_phy;
@@ -24,20 +25,19 @@ static Mutex SerialOutMutex;
 void serial_out_mutex_wait() { SerialOutMutex.lock(); }
 void serial_out_mutex_release() { SerialOutMutex.unlock(); }
 
-static void blink() { led1 = !led1; }
+static void blink() { led2 = !led2; }
 void start_blinking() { ticker.attach(blink, 1.0); }
 
+#define BLINK_CODE(t)                                                          \
+  while (1) {                                                                  \
+    led2 = !led2;                                                              \
+    wait(t);                                                                   \
+  }
+
 int main(int argc, char **argv) {
+  int res;
 
-	ticker.attach(blink, 1.0);
-
-	while (1) {
-		led2 = !led2;
-		wait(0.5);
-	}
-
-#if 0
-  ticker.attach(blink, 0.5);
+  usb.printf("Test print!\n");
 
   // Setup packet trace outputs
   mbed_trace_init();
@@ -45,13 +45,21 @@ int main(int argc, char **argv) {
   mbed_trace_mutex_wait_function_set(serial_out_mutex_wait);
   mbed_trace_mutex_release_function_set(serial_out_mutex_release);
 
+  #if 0
   // Initialise mesh
-  mesh.initialize(&rf_phy);
-  int error = mesh.connect();
-  if (error) {
-    printf("Connection failed! %d\n", error);
-    return error;
+  res = mesh.initialize(&rf_phy);
+  if (res < 0) {
+    printf("Initialisation failed! %d\n", res);
+    BLINK_CODE(0.1);
   }
+
+  res = mesh.connect();
+  if (res < 0) {
+    printf("Connection failed! %d\n", res);
+    BLINK_CODE(0.2);
+  }
+
+  ticker.attach(blink, 1.0);
 
   // Await IP allocation
   while (NULL == mesh.get_ip_address())
@@ -62,8 +70,11 @@ int main(int argc, char **argv) {
 
   // Mesh connected
   printf("connected. IP = %s\n", mesh.get_ip_address());
+#endif
 
   while (1) {
+    led1 = !led1;
+    usb.printf("Boop\r\n");
+    wait(0.5);
   }
-#endif
 }
