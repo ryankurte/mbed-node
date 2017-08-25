@@ -2,7 +2,7 @@ target remote localhost:2331
 monitor halt
 monitor reset
 monitor speed 8000
-monitor flash device EFR32FG12P433F1024GL125
+monitor flash device ${DEVICE}
 
 define reset
   monitor halt

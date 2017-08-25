@@ -1,7 +1,14 @@
 # Helper makefile for installing components
 
 DEVICE=EFR32FG12P433F1024GL125
-OUTPUT=./BUILD/EFR32FG12_SLWRB4254A/GCC_ARM/node-mbed
+OUTDIR=./BUILD
+OUTPUT=${OUTDIR}/EFR32FG12_SLWRB4254A/GCC_ARM/node-mbed
+BIN=${OUTPUT}.bin
+ELF=${OUTPUT}.elf
+
+IPS=192.168.2.58 192.168.2.87 192.168.3.16
+
+configurefile = $(sed -ei '' 's/{DEVICE}/${DEVICE}/g' $0  $1)
 
 build-debug:
 	mbed-cli compile --profile mbed-os/tools/profiles/debug.json
@@ -12,17 +19,28 @@ build-dev:
 build-release:
 	mbed-cli compile --profile mbed-os/tools/profiles/release.json
 
+${OUTDIR}/%.jlink: toolchain/%.jlink
+	cp $< $@
+	sed -i '' 's|$${DEVICE}|${DEVICE}|g' $@
+	sed -i '' 's|$${BIN}|${BIN}|g' $@
+	sed -i '' 's|$${ELF}|${ELF}|g' $@
+
 flash:
 	mbed-cli compile --flash
 
-f:
-	JLinkExe -if SWD -device ${DEVICE} -Speed 4000 -CommanderScript toolchain/flash.jlink
+f:  build-debug ${OUTDIR}/flash.jlink
+	JLinkExe -if SWD -device ${DEVICE} -Speed 4000 -CommanderScript  ${OUTDIR}/flash.jlink
 
-ds:
+ds: 
 	JLinkGDBServer -if SWD -device ${DEVICE} -Speed 4000
 
-d:
-	arm-none-eabi-gdb --tui --se=${OUTPUT}.elf --command=toolchain/gdb.jlink
+d:  ${OUTDIR}/gdb.jlink
+	arm-none-eabi-gdb --tui --se=${OUTPUT}.elf --command=${OUTDIR}/gdb.jlink
+
+fa: build-debug ${OUTDIR}/flash-all.jlink
+	JLinkExe -if SWD -device ${DEVICE} -Speed 4000 -CommanderScript ${OUTDIR}/flash-all.jlink
+
+
 
 update:
 	mbed-cli update
@@ -30,4 +48,4 @@ update:
 install:
 	pip install mbed-cli
 
-.phony: build-dev build-debug build-release flash update install
+.PHONY: build-dev build-debug build-release flash update install test

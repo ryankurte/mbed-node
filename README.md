@@ -18,6 +18,11 @@ This project uses virtualenv to mitigate janky af python packaging of mbed-cli, 
 
 To launch the local virtual environment run `. ./venv/bin/activate`, to exit run `deactivate`.
 
+### Building
+
+Check out the [makefile](makefile) for helper commands.
+
+The WSTK boards do not appear to have support for the mbed IDE, so for now programming is via a set of jlink scripts exposed via the makefile.
 
 ### Resources
 

@@ -1,3 +1,4 @@
+ip ${IP}
 h
 r
 device ${DEVICE}
