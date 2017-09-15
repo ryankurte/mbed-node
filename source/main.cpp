@@ -15,18 +15,34 @@
 DigitalOut led1(LED1);
 DigitalOut led2(LED2);
 
+LoWPANNDInterface mesh;
+NanostackRfPhyEfr32 rf_phy;
+
 int main(int argc, char **argv) {
+  int res;
+
+  res = mesh.initialize(&rf_phy);
+  if (res < 0) {
+    led2 = 1;
+  }
+ 
+  res = mesh.connect();
+  if (res < 0) {
+    led2 = 1;
+  }
+ 
   while (1) {
     led1 = !led1;
-    led2 = !led1;
     wait(0.5);
   }
 }
 
-#if 0
-LoWPANNDInterface mesh;
-NanostackRfPhyEfr32 rf_phy;
+void os_error (uint32_t error_code) {
+  __asm__("BKPT #0");
+  for (;;);
+}
 
+#if 0
 Ticker ticker;
 
 static Mutex SerialOutMutex;

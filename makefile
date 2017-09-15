@@ -15,7 +15,7 @@ build-release:
 flash:
 	mbed-cli compile --flash
 
-f:
+f: build-debug
 	JLinkExe -if SWD -device ${DEVICE} -Speed 4000 -CommanderScript toolchain/flash.jlink
 
 ds:
@@ -30,4 +30,7 @@ update:
 install:
 	pip install mbed-cli
 
-.phony: build-dev build-debug build-release flash update install
+clean:
+	rm -rf BUILD/
+
+.phony: build-dev build-debug build-release flash update install clean
