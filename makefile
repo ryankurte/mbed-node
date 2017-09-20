@@ -48,4 +48,7 @@ update:
 install:
 	pip install mbed-cli
 
-.PHONY: build-dev build-debug build-release flash update install test
+clean:
+	rm -rf BUILD/
+
+.phony: build-dev build-debug build-release flash update install clean
