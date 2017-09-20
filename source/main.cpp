@@ -21,15 +21,23 @@ NanostackRfPhyEfr32 rf_phy;
 int main(int argc, char **argv) {
   int res;
 
+  printf("\nInitialising mbed-os\n");
+
   res = mesh.initialize(&rf_phy);
   if (res < 0) {
+    printf("Mesh error: %d\n", res);
     led2 = 1;
   }
+
+  printf("Mesh initialised, connecting...\n");
  
   res = mesh.connect();
   if (res < 0) {
+    printf("Connect error: %d\n", res);
     led2 = 1;
   }
+
+  printf("Awaiting connection...\n");
  
   while (1) {
     led1 = !led1;
