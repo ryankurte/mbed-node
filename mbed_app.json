@@ -4,9 +4,10 @@
             "target.features_add": ["NANOSTACK", "LOWPAN_ROUTER", "COMMON_PAL"],
             "mbed-mesh-api.6lowpan-nd-device-type": "NET_6LOWPAN_ROUTER",
             "mbed-mesh-api.6lowpan-nd-channel": 12,
+            "mbed-mesh-api.6lowpan-nd-channel-page": 2,
             "mbed-mesh-api.6lowpan-nd-channel-mask": "(1<<12)",
             "mbed-mesh-api.6lowpan-nd-security-mode": "NONE",
-            "mbed-mesh-api.heap-size": 14000,
+            "mbed-mesh-api.heap-size": 128000,
             "mbed-trace.enable": true,
             "platform.stdio-convert-newlines": true,
             "platform.stdio-baud-rate": 115200
