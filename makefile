@@ -2,7 +2,7 @@
 
 DEVICE=EFR32FG12P433F1024GL125
 OUTDIR=./BUILD
-OUTPUT=${OUTDIR}/EFR32FG12_SLWRB4254A/GCC_ARM/node-mbed
+OUTPUT=${OUTDIR}/EFR32FG12_BRD4254A/GCC_ARM/mbed-node
 BIN=${OUTPUT}.bin
 ELF=${OUTPUT}.elf
 
@@ -21,9 +21,9 @@ build-release:
 
 ${OUTDIR}/%.jlink: toolchain/%.jlink
 	cp $< $@
-	sed -i '' 's|$${DEVICE}|${DEVICE}|g' $@
-	sed -i '' 's|$${BIN}|${BIN}|g' $@
-	sed -i '' 's|$${ELF}|${ELF}|g' $@
+	sed -i'' 's|$${DEVICE}|${DEVICE}|g' $@
+	sed -i'' 's|$${BIN}|${BIN}|g' $@
+	sed -i'' 's|$${ELF}|${ELF}|g' $@
 
 flash:
 	mbed-cli compile --flash

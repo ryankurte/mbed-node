@@ -18,6 +18,8 @@ DigitalOut led2(LED2);
 LoWPANNDInterface mesh;
 NanostackRfPhyEfr32 rf_phy;
 
+//Serial u2(PA6, PA7, 115200);
+
 int main(int argc, char **argv) {
   int res;
 
